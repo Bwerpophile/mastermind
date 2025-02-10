@@ -1,7 +1,7 @@
 # Création des joeurs
 
 class Player
-  attr_accessor :name
+  attr_accessor :name, :user_input
 
   def initialize(name)
     @name = name
@@ -12,12 +12,10 @@ class Player
     "Player : #{@name} is in the game"
   end
 
+  # il faut limiter de manière clair le nombre de caractères entrés
   def user_input
-    puts 'Entrez vos 4 chiffres'
-
-    input_arr = []
+    puts 'Entrez vos 4 chiffres de 0 à 5'
     user_input = gets.chomp
-    input_arr = user_input.chars
-    p input_arr
+    user_input.chars
   end
 end
