@@ -11,4 +11,13 @@ class Player
   def to_s
     "Player : #{@name} is in the game"
   end
+
+  def user_input
+    puts 'Entrez vos 4 chiffres'
+
+    input_arr = []
+    user_input = gets.chomp
+    input_arr = user_input.chars
+    p input_arr
+  end
 end

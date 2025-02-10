@@ -11,17 +11,12 @@ class Game
     @pegs2 = Pegs.new
     @pegs3 = Pegs.new
     @pegs4 = Pegs.new
+    @pegs5 = Pegs.new
+    @pegs6 = Pegs.new
   end
 
-  def user_input
-    puts 'Entrez vos 4 chiffres'
-    input_arr = []
-    user_input = gets.chomp.to_1
-    input_arr = user_input.chars
-  end
-
-  def player_turn
-    input = input_arr
+  def start
+    @player.user_input
   end
   # l'utilisateur souhaite entrée un couleur et doit pouvoir le faire
   # une fonction user_input(input) input est équivalent à une couleur
@@ -35,4 +30,5 @@ class Game
 end
 
 new_game = Game.new
-puts new_game
+
+new_game.start
