@@ -6,14 +6,13 @@ class Pegs
 
   def initialize(color_name)
     @color = color_name.colorize(color_name.to_sym)
-    @position = nil
-  end
-
-  def pegs_position(position)
-    @position = position
   end
 
   def to_s
     @color
+  end
+
+  def ==(other)
+    other.is_a?(Pegs) && color == other.color
   end
 end

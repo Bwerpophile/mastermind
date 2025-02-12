@@ -2,6 +2,7 @@ require_relative 'board'
 require_relative 'pegs'
 require_relative 'player'
 require 'colorize'
+require_relative 'coder'
 
 # Create the game and rules
 class Game
@@ -18,7 +19,7 @@ class Game
     @pegs6 = Pegs.new('magenta')
   end
 
-  def start
+  def user_choice
     input_arr = @player.user_input.filter_map { |char| char.to_i if /\d/.match?(char) }.compact
     new_arr = input_arr.map do |peg|
       case peg
@@ -41,10 +42,12 @@ class Game
     @board.update_board(new_arr)
   end
 
-  # l'utilisateur souhaite entrée un couleur et doit pouvoir le faire
-  # une fonction user_input(input) input est équivalent à une couleur
-  # la fonction user_input permet d'afficher le choix de l'utilisateur
-  # au bon endroit.
+  def compare
+  end
+
+  def start
+    user_choice while @board.board_array.length < 10
+  end
 
   def to_s
     "Game avec #{@player.name}
