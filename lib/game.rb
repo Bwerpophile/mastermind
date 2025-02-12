@@ -1,52 +1,50 @@
 require_relative 'board'
 require_relative 'pegs'
 require_relative 'player'
-require 'colorize'
 require_relative 'coder'
+require_relative 'pins'
+require 'colorize'
 
 # Create the game and rules
 class Game
   attr_accessor :initialize, :start
+  attr_reader :board
 
   def initialize
     @board = Board.new
     @player = Player.new('Joris')
-    @pegs1 = Pegs.new('blue')
-    @pegs2 = Pegs.new('white')
-    @pegs3 = Pegs.new('red')
-    @pegs4 = Pegs.new('green')
-    @pegs5 = Pegs.new('yellow')
-    @pegs6 = Pegs.new('magenta')
+    @coder = Coder.new
+    @pins1 = Pins.new('light_red')
+    @pins1 = Pins.new('light_blue')
+    @game_array = [0, 0, 0, 0]
   end
 
-  def user_choice
-    input_arr = @player.user_input.filter_map { |char| char.to_i if /\d/.match?(char) }.compact
-    new_arr = input_arr.map do |peg|
-      case peg
-      when 0
-        @pegs1
-      when 1
-        @pegs2
-      when 2
-        @pegs3
-      when 3
-        @pegs4
-      when 4
-        @pegs5
-      when 5
-        @pegs6
+  def compare(arr1, arr2)
+    # puts "this is the board #{@board.board_array[5]}"
+    board_row = @board.board_array.last.split(' | ')
+    puts board_row[4] = 'L'
+    arr1.each_with_index do |element, index|
+      if element == arr2[index]
+        @game_array[index] = element
+        board_row[index + 3] = element
       else
-        'No color found'
+        puts 'to bad'
       end
     end
-    @board.update_board(new_arr)
-  end
-
-  def compare
+    puts "Arr3: #{@game_array}"
+    puts @game_array.join(' | ')
+    puts board_row.join(' | ')
+    @board.board_array = board_row.last.split(' | ')
   end
 
   def start
-    user_choice while @board.board_array.length < 10
+    computer_code = @coder.random_code
+    while @board.board_array.length < 10
+      player_code = @player.user_choice
+      @board.update_board(player_code)
+      puts 'your close' if compare(player_code, computer_code) == false
+      puts 'you win' if player_code == computer_code
+    end
   end
 
   def to_s
