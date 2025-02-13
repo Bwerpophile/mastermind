@@ -20,7 +20,6 @@ class Game
   end
 
   def compare(arr1, arr2)
-    # puts "this is the board #{@board.board_array[5]}"
     board_row = @board.board_array.last.split(' | ')
     arr1.each_with_index do |element, index|
       if element == arr2[index]
@@ -30,19 +29,23 @@ class Game
         board_row[index + 4] = @pins2.to_s
       end
     end
-    puts @game_array.join(' | ')
+    @game_array.join(' | ')
     puts board_row.join(' | ')
     @board.board_array = board_row.last.split(' | ')
   end
 
   def start
     computer_code = @coder.random_code
-    while @board.board_array.length < 10
+    10.times do
       player_code = @player.user_choice
       @board.update_board(player_code)
-      puts 'your close' if compare(player_code, computer_code) == false
-      puts 'you win' if player_code == computer_code
+      compare(player_code, computer_code)
+      if player_code == computer_code
+        puts 'You win !! '
+        break
+      end
     end
+    puts 'To bad you lose ... '
   end
 
   def to_s

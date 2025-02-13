@@ -16,7 +16,6 @@ class Board
     new_board = @board.join(' | ')
     @board_array << new_board
     @board_array
-    # puts "This is Board array #{@board_array}"
   end
 
   def to_s

@@ -18,7 +18,21 @@ class Player
   def user_input
     puts 'Entrez vos 4 chiffres de 0 à 5'
     user_input = gets.chomp
+    user_input = gets.chomp while valid_input?(user_input) == false
     user_input.chars
+  end
+
+  def valid_input?(user_input)
+    if user_input.length <= 3
+      puts 'Vous devez entrer 4 chiffres'
+      false
+    elsif user_input.length > 4
+      puts 'Vous devez entrer moins de 4 chiffres'
+      false
+    elsif user_input.chars.all? { |char| ('0'..'5').include?(char) } == false
+      puts 'Les chiffres entrés sont au dessus de 5 '
+      false
+    end
   end
 
   def user_choice
