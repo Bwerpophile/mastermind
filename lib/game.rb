@@ -7,7 +7,7 @@ require 'colorize'
 
 # Create the game and rules
 class Game
-  attr_accessor :initialize, :start
+  # attr_accessor :initialize, :start
   attr_reader :board
 
   def initialize
@@ -17,6 +17,7 @@ class Game
     @pins1 = Pins.new('light_red')
     @pins2 = Pins.new('light_blue')
     @game_array = [0, 0, 0, 0]
+    @last_board = []
   end
 
   def compare(arr1, arr2)
@@ -29,9 +30,8 @@ class Game
         board_row[index + 4] = @pins2.to_s
       end
     end
-    @game_array.join(' | ')
+    @last_board << board_row
     puts board_row.join(' | ')
-    @board.board_array = board_row.last.split(' | ')
   end
 
   def start
@@ -45,12 +45,6 @@ class Game
         break
       end
     end
-    puts 'To bad you lose ... '
-  end
-
-  def to_s
-    "Game avec #{@player.name}
-    \n le plateau:\n#{@board}"
   end
 end
 

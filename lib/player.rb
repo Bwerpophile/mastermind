@@ -6,6 +6,7 @@ class Player
 
   def initialize(name)
     @name = name
+    puts "Player is #{name}"
     @id = 1
     @pegs0 = Pegs.new('blue')
     @pegs1 = Pegs.new('white')
