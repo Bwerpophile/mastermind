@@ -8,7 +8,7 @@ require 'colorize'
 # Create the game and rules
 class Game
   # attr_accessor :initialize, :start
-  attr_reader :board
+  attr_reader :board, :compare, :initialize
 
   def initialize
     @board = Board.new
@@ -17,29 +17,26 @@ class Game
     @pins1 = Pins.new('light_red')
     @pins2 = Pins.new('light_blue')
     @game_array = [0, 0, 0, 0]
-    @last_board = []
   end
 
-  def compare(arr1, arr2)
-    board_row = @board.board_array.last.split(' | ')
-    arr1.each_with_index do |element, index|
-      if element == arr2[index]
-        @game_array[index] = element
-        board_row[index + 4] = @pins1.to_s # to_s car c'est un objet et sinon le code casse avec l'utilisation de #las
-      elsif arr2.include?(element)
-        board_row[index + 4] = @pins2.to_s
+  def compare(player_code, computer_code)
+    @game_array = [0, 0, 0, 0]
+    player_code.each_with_index do |element, index|
+      if element == computer_code[index]
+        @game_array[index] = @pins1.to_s
+      elsif computer_code.include?(element)
+        @game_array[index] = @pins2
       end
     end
-    @last_board << board_row
-    puts board_row.join(' | ')
+    @game_array
   end
 
   def start
     computer_code = @coder.random_code
     10.times do
       player_code = @player.user_choice
-      @board.update_board(player_code)
-      compare(player_code, computer_code)
+      feedback = compare(player_code, computer_code)
+      @board.update_board(player_code, feedback)
       if player_code == computer_code
         puts 'You win !! '
         break

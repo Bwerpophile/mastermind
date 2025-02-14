@@ -1,6 +1,7 @@
-# create pins to give information about the code to find
+# require colorize
 require 'colorize'
 
+# create pins to give information about the code to find
 class Pins
   def initialize(color_name)
     @color = color_name.to_sym
@@ -10,6 +11,3 @@ class Pins
     'X'.colorize(@color)
   end
 end
-
-pin = Pins.new('red')
-puts pin # Ça doit afficher "X" en rouge
