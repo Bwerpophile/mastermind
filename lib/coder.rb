@@ -15,25 +15,10 @@ class Coder
   end
 
   def random_code
-    arr = [0, 1, 2, 3, 4, 5].sample(4)
+    arr = (0..5).to_a.sample(4)
 
-    test = arr.map do |peg|
-      case peg
-      when 0
-        @pegs0
-      when 1
-        @pegs1
-      when 2
-        @pegs2
-      when 3
-        @pegs3
-      when 4
-        @pegs4
-      when 5
-        @pegs5
-      else
-        'No color found'
-      end
-    end
+    pegs = [@pegs0, @pegs1, @pegs2, @pegs3, @pegs4, @pegs5]
+
+    arr.map { |peg| pegs[peg] || 'No color found' }
   end
 end
